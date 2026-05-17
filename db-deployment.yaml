@@ -1,37 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: student-task-manager
+  name: postgres
   labels:
-    app: student-task-manager
+    app: postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: student-task-manager
+      app: postgres
   template:
     metadata:
       labels:
-        app: student-task-manager
+        app: postgres
     spec:
       containers:
-        - name: student-task-manager
-          image: student-task-manager:latest
+        - name: postgres
+          image: postgres:14
           imagePullPolicy: Never
           ports:
-            - containerPort: 8080
+            - containerPort: 5432
           env:
-            - name: SPRING_DATASOURCE_URL
+            - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
                   name: db-config
-                  key: DB_URL
-            - name: SPRING_DATASOURCE_USERNAME
+                  key: DB_NAME
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: db-secret
                   key: DB_USERNAME
-            - name: SPRING_DATASOURCE_PASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-secret

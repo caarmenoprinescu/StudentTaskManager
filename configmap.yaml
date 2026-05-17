@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  DB_URL: jdbc:postgresql://postgres-service:5432/student_task_manager
+  DB_NAME: student_task_manager
